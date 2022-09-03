@@ -1,0 +1,59 @@
+# QUESTÃO 1 de 4 (25 pontos) CONTEÚDO ATÉ AULA 03
+
+# Apresentação do estabelecimento
+print('Olá, bom dia. Seja bem-vindo(a) à Frutaria Maurício Pereira!\n'
+      'Aquí você encontra os melhores preços e produtos!')
+
+# Definindo e obtendo as variáveis de entrada
+valor_unitario = float(input('Informe o valor unitário do produto adquirido: '))
+quantidade = int(input(('Informe a quantidade adquirida: ')))
+
+# Definindo e calculando o preço total SEM desconto
+valor_total_sem_desconto =  quantidade * valor_unitario
+
+# Defindo os valores inicias do percentual de desconto e valor total COM desconto
+percetual_desconto = 0
+valor_total_com_desconto = 0
+
+# Decidindo o desconto a ser aplicado com base na quantidade informada pelo cliente
+if (quantidade <=4):
+    # O cliente comprou 4 ou menos unidades do produto. Logo não terá desconto.
+    percetual_desconto = 0
+    # Exibe o valor total SEM desconto.
+    print('A quantidade informa não possui desconto.\n O Valor é R$ %.2f.'.format(valor_total_sem_desconto))
+else:
+# O cliente comprou mais de 4 unidades do produto. Logo terá desconto.
+      if  (quantidade>=5 and quantidade<=19):
+            # O cliente comprou entre 5 a 19 unidades do produto. Logo terá desconto de 3%.
+            percetual_desconto = 3/100
+            # Calculo o valor total com desconto
+            valor_total_com_desconto = valor_total_sem_desconto * (1 - percetual_desconto)
+            # Exibe mensagem dos valores totais SEM e COM desconto.
+            print('A quantidade informada tem direito à 3% de desconto.\n' +
+                  'Preço total SEM desconto: R$ {:.2f}.\n' .format(valor_total_sem_desconto) +
+                  'Preço total COM desconto: R$ {:.2f}.'.format(valor_total_com_desconto))
+
+      elif (quantidade>=20 and quantidade<=99):
+          # O cliente comprou entre 20 a 99 unidades do produto. Logo terá desconto de 6%.
+          percetual_desconto = 6 / 100
+          # Calculo o valor total com desconto
+          valor_total_com_desconto = valor_total_sem_desconto * (1 - percetual_desconto)
+          # Exibe mensagem dos valores totais SEM e COM desconto.
+          print('A quantidade informada tem direito à 6% de desconto.\n' +
+                'Preço total SEM desconto: R$ {:.2f}.\n'.format(valor_total_sem_desconto) +
+                'Preço total COM desconto: R$ {:.2f}.'.format(valor_total_com_desconto))
+      elif (quantidade >=100):
+          percetual_desconto = 10 / 100
+          # Calculo o valor total com desconto
+          valor_total_com_desconto = valor_total_sem_desconto * (1 - percetual_desconto)
+          # Exibe mensagem dos valores totais SEM e COM desconto.
+          print('A quantidade informada tem direito à 10% de desconto.\n' +
+                'Preço total SEM desconto: R$ {:.2f}.\n'.format(valor_total_sem_desconto) +
+                'Preço total COM desconto: R$ {:.2f}.'.format(valor_total_com_desconto))
+      else:
+          print('O valor informado incorretamente. Tente novamente')
+
+
+
+
+
