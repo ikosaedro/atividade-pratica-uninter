@@ -1,0 +1,112 @@
+
+## Apresentação de boas vinda e do Cadápio da Pizzaria
+
+print( '\n|____Seja bem vindo(a) à Pizzaria Maurício Pereira____|')
+print( '|_______________________CARDÁPIO______________________|')
+print( '| Código |   Descrição	|   Pizza Média | Pizza Grande|\n'
+       '|  21	 |   Napolitana	|   R$ 20,00	| R$ 26,00    |\n'
+       '|  22	 |   Margherita	|   R$ 20,00	| R$ 26,00    |\n'
+       '|  23	 |   Calabresa	|   R$ 25,00	| R$ 32,50    |\n'
+       '|  24	 |   Toscana 	|   R$ 30,00	| R$ 39,00    |\n'
+       '|  25	 |   Portuguesa	|   R$ 30,00	| R$ 39,00    |\n')
+
+## Definição inicial das variávis a serem usadas nos cálculos
+quantidade_pizza = 1;
+comprar_pizza = True
+quantidade_pizza_media = 0
+valor_pizza_media = 0
+valor_total_pizza_media = 0
+quantidade_pizza_grande = 0;
+valor_pizza_grande = 0;
+valor_total_pizza_grande = 0
+codigo_pizza = 0
+valor_pagar = 0
+nome_pizza_escolhida = ''
+
+# Estrutura while para realizar o processo de compra enquanto o cliente deseja
+while (comprar_pizza ==True):
+      # Solicitação que o cliente informe o tamanho da pizza desejada
+      tamanho_pizza = input('Informe o tamanho da pizza (M/G): ')
+      # Escolhendo M ou G o programa contabiliza a quantidade pizzas de cada tamanho
+      # Caso informe qualquer outra coisa, o programa alerta mostrando que o tamanho escolhido é inválido e volta
+      # para o ínicio da escolha do tamanho
+      if (tamanho_pizza =='M'):
+          quantidade_pizza_media +=1
+      elif(tamanho_pizza =='G'):
+          quantidade_pizza_grande +=1
+      else:
+          print('Tamanho inválido. Tente novamente.')
+          continue
+
+     # Solicita a inserção do Código da Pizza, capturando o valor na variável codigo_pizza.
+      codigo_pizza = int(input('Informe o Código da pizza: '))
+
+      # Escolhendo um Código correto, o programa identifica pizza e seu preço com base no tamanho escolhido e incrementa
+      # o unitário valor ao valor total das pizzas já escolhidas.
+      # Caso informe qualquer outra coisa, o programa alerta mostrando que o Código digitado é inválido e volta
+      # para o ínicio da escolha do tamanho.
+
+      if (codigo_pizza == 21 and tamanho_pizza =='M'):
+          nome_pizza_escolhida = 'Napolitana'
+          valor_total_pizza_media += 20
+      elif(codigo_pizza == 21 and tamanho_pizza =='G'):
+          nome_pizza_escolhida = 'Napolitana'
+          valor_total_pizza_grande += 26
+      elif (codigo_pizza == 22 and tamanho_pizza == 'M'):
+          nome_pizza_escolhida = 'Margherita'
+          valor_total_pizza_media += 20
+      elif (codigo_pizza == 22 and tamanho_pizza == 'G'):
+          nome_pizza_escolhida = 'Margherita'
+          valor_total_pizza_grande += 26
+      elif (codigo_pizza == 23 and tamanho_pizza == 'M'):
+          nome_pizza_escolhida = 'Calabresa'
+          valor_total_pizza_media += 25
+      elif (codigo_pizza == 23 and tamanho_pizza == 'G'):
+          nome_pizza_escolhida = 'Calabresa'
+          valor_total_pizza_grande += 32
+      elif (codigo_pizza == 24 and tamanho_pizza == 'M'):
+          nome_pizza_escolhida = 'Toscana'
+          valor_total_pizza_media += 30
+      elif (codigo_pizza == 24 and tamanho_pizza == 'G'):
+          nome_pizza_escolhida = 'Toscana'
+          valor_total_pizza_grande+= 39
+      elif (codigo_pizza == 25 and tamanho_pizza == 'M'):
+           nome_pizza_escolhida = 'Portuguesa'
+           valor_total_pizza_media += 30
+      elif (codigo_pizza == 25 and tamanho_pizza == 'G'):
+           nome_pizza_escolhida = 'Portuguesa'
+           valor_total_pizza_grande += 39
+      else:
+          print('Código inválido. Tente novamente.')
+          # Caso informe o cógigo errado, o programa remove um pizza do respectivo tamanho.
+          if (tamanho_pizza == 'M'):
+              quantidade_pizza_media -= 1
+          else:
+              quantidade_pizza_grande -= 1
+          continue
+      print('Pizza pediu uma pizza {}.\n'.format(nome_pizza_escolhida))
+      # Pergunta se o cliente deseja comprar uma nova pizza
+      desejo_cliente = input(('Deseja comprar outra pizza (S/N): '))
+      # Se optar em comprar outra pizza, o cliente volta ao início para uma nova compra.
+      # Se não, o programa mostra um resumo da compra e exibir o valor total a pagar.
+      if (desejo_cliente == 'S'):
+          continue
+      else:
+          print('_________________________________________________________________')
+          print('RESUMO DA COMPRA')
+          # Se o cliente comprar pizzas médias, exibe a quantidade e o total.
+          if (quantidade_pizza_media > 0):
+              print('Quantidade de pizzas tamanho M: {}'.format(quantidade_pizza_media))
+              print('Valor total de pizzas tamanho M: {:.2f}'.format(valor_total_pizza_media))
+          # Se o cliente comprar pizzas grandes, exibe a quantidade e o total.
+          if (quantidade_pizza_grande > 0):
+              print('Quantidade de pizzas tamanho G: {}'.format(quantidade_pizza_grande))
+              print('Valor total de pizzas tamanho G: R$ {:.2f}'.format(valor_total_pizza_grande))
+          print('_________________________________________________________________')
+          # Calcula o valor total das pizzas compradas e depois exibe.
+          valor_pagar = valor_total_pizza_media + valor_total_pizza_grande
+          print('Total a pagar: R$ {:.2f}'.format(valor_pagar))
+          # Finaliza a excução do programa com o break
+          break
+         # Ou poderia usar a expressão abaixo para fazer a mesma coisa
+         # comprar_pizza = False
