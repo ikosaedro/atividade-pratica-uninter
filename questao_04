@@ -1,0 +1,229 @@
+
+# Definição de variáveis
+
+# Definição de um dicionário para alocar todos os produtos
+dic_produtos = {'Código': [], 'Nome produto': [], 'Fabricante':[], 'Valor (R$)':[]}
+
+# Definição de uma lista para cada atributo do produto
+list_codigos = dic_produtos['Código']
+list_produtos = dic_produtos['Nome produto']
+list_fabricantes =dic_produtos['Fabricante']
+list_valores = dic_produtos['Valor (R$)']
+
+# Definição da varível para receber o código
+codigo_produto = 0
+
+
+# Função de cadastro de produtos
+def cadastrarProduto():
+
+    # Mostra que o usuário selecionou a opção 1
+    print('Você selecionou a opção Cadastrar Produto')
+
+    # Define globalmente as varíaveis abaixo
+    global dic_produtos
+    global codigo_produto
+
+    # Loop para cadastro de produtos
+    while (True):
+
+        # Obtém o código do produto
+        codigo_produto += 1
+        # Formata o código do prouto para o formato 000
+        codigo_produto_formatado = str(codigo_produto).zfill(3)
+        #Exibi o cógio do produto a ser cadastrado
+        print('Código do Produto {}.'.format(codigo_produto_formatado))
+        # Inclui o código do produto no dicionario produtos na chave código
+        dic_produtos['Código'].append(codigo_produto_formatado)
+
+        # Recebe e inclui o nome do produto no dicionario produtos na chave produto
+        produto = input('Por favor entre com o NOME do Produto: ')
+        dic_produtos['Nome produto'].append(produto)
+
+        # Recebe e inclui o nome do fabricante no dicionario produtos na chave fabricante
+        fabricante = input('Por favor entre com o FABRICANTE do Produto: ')
+        dic_produtos['Fabricante'].append(fabricante)
+
+        # Recebe e inclui o valor do produto no dicionario produtos na chave Valor (R$)
+        valor = input('Por favor entre com o VALOR (R$) do Produto: ')
+        dic_produtos['Valor (R$)'].append(valor)
+
+        # Questiona o usuário se o mesmo deseja realizar o cadastro de um novo produto
+        cadatrarNovoProduto = input('Deseja cadastrar novo Produto (S/N): ').upper()
+
+        # Se informa que NÃO (N)  o processo de cadastro é finalizo e volta-se para o menu inicial
+        if (cadatrarNovoProduto!='N'):
+            # Questiona novamente. Se informar que SIM (S) o processo de cadastro permanece, iniciando o cadastro de um novo produto.
+            # Se não, informa que a entrada foi inválida e retoma o menu inicial
+            if (cadatrarNovoProduto=='S'):
+                continue
+            else:
+               sair()
+               continue
+        else:
+            sair()
+            break
+
+def consultarProduto():
+
+    try:
+        # Mostra que o usuário selecionou a opção 2
+        print('Você selecionou a opção Consultar Produtos')
+        # Mostra as opções de Consulta
+        print('Escolha a opção desejada:'
+              '\n1-Consultar Todos os Produtos'
+              '\n2-Consultar Produto(s) por Código'
+              '\n3-Consultar Produto(s) por Fabricante'
+              '\n4-Retornar')
+
+        # Obtém a opção de consulta
+        opcao_consultar_desejada = int(input('>>'))
+
+        # Define globalmente a lista dos atributos e obtém cada atributo vindo do dic_produtos
+
+        global list_codigos
+        list_codigos = dic_produtos['Código']
+        global list_produtos
+        list_produtos = dic_produtos['Nome produto']
+
+        global list_fabricantes
+        list_fabricantes = dic_produtos['Fabricante']
+
+        global list_valores
+        list_valores = dic_produtos['Valor (R$)']
+
+        # Obtém o tamanho da lista de produtos cadastrados
+        tam = len(list_codigos)
+
+        # Pergunta o tipo de consulta
+        # Consultar todos os produtos
+        if (opcao_consultar_desejada == opcoes[0]):
+            print('-' * 30)
+            # Exibe a listagem de todos os produtos
+            for x in range(0, tam, 1):
+                print('Código: ', list_codigos[x])
+                print('Produto: ', list_produtos[x])
+                print('Fabricante: ', list_fabricantes[x])
+                print('Valor: R$ {:.2f}'.format(float(list_valores[x])))
+                print('-' * 30)
+
+        # Consultar produto por CÓDIGO escolhida
+        elif (opcao_consultar_desejada == opcoes[1]):
+
+            print('-' * 30)
+            # Tratamento de erro caso o usuário não informe uma entrada númerica
+            try:
+
+                codigo_escolhido = int(input('Digite o CÓDIGO do Produto: ')) - 1
+
+                print('Código: ', list_codigos[codigo_escolhido])
+                print('Produto: ', list_produtos[codigo_escolhido])
+                print('Fabricante: ', list_fabricantes[codigo_escolhido])
+                print('Valor: R$ {:.2f}'.format(float(list_valores[codigo_escolhido])))
+                print('-' * 30)
+
+            except:
+                print('Códio não localizado.')
+                sair()
+
+        # Consultar produto por FABRICANTE escolhida
+        elif (opcao_consultar_desejada == opcoes[2]):
+
+            print('-' * 30)
+
+            # Pergunta o nome do fabricante
+            fabricante = input('Digite o NOME DO FABRICANTE do Produto: ')
+
+            for x in range(0, tam, 1):
+                # Exibe os produtos como o nome do fabricante informado.
+                if (list_fabricantes[x] == fabricante):
+                    print('Código: ', list_codigos[x])
+                    print('Produto: ', list_produtos[x])
+                    print('Fabricante: ', list_fabricantes[x])
+                    print('Valor: R$ {:.2f}'.format(float(list_valores[x])))
+                    print('-' * 30)
+        sair()
+    except Exception as e:
+        print('Erro. Apenas número é permitido.')
+        sair()
+
+# Função de remover produtos
+def removerProduto():
+    # Tratamento de erro
+    try:
+        print('Você selecionou a opção de Remover Produto')
+        global codigo_produto
+
+        # Obtém o tamanho da lista de produtos cadastrados
+        tam = len(list_codigos)
+        codigo_produto = int(input('Digite o código do produto a ser removido: '))
+        codigo_produto_formatado = str(codigo_produto).zfill(3)
+
+        # Verifica se na lista existem produtos cadastrados
+        if (tam > 0):
+            # Percorre as lista de produtos, removendo-os de acordo como o código informado.
+            for x in range(0, tam, 1):
+
+                if (list_codigos[x] == codigo_produto_formatado):
+                    list_codigos.remove(list_codigos[x])
+                    list_produtos.remove(list_produtos[x])
+                    list_fabricantes.remove(list_fabricantes[x])
+                    list_valores.remove(list_valores[x])
+            sair()
+        else:
+            # Exibe  mensagem e retorna o menu inicial
+            print('Produtos não encontrados.')
+            sair()
+
+    except Exception as e:
+     # Exibe menu inicial
+       sair()
+
+def sair():
+    iniciaControlEstoque()
+
+def opcaoInvalida():
+    print('Opção escolhida é inválida. Tente novamente.')
+
+
+# Boas Vindas e identificação
+print('Seja bem vindo(a) ao Controle de Estoque da Mercearia do Maurício Pereira!')
+
+# Opções do Menu
+opcoes = (1, 2, 3, 4)
+
+
+# Função inicial
+def iniciaControlEstoque():
+
+    # Defini a opção desejada
+    opcao_desejada = 0
+    # Mostras a opções disponível para o controle de estoque
+    print('Escolha a opção desejada:'
+          '\n1-Cadastrar Produto'
+          '\n2-Consultar Produto(s)'
+          '\n3-Remover Produto'
+          '\n4-Sair')
+
+    # Tratamento de erro para casso de não informar valor númerico
+    try:
+
+        # Obtém a opção desejada
+        opcao_inicial_desejada = int(input('>>'))
+
+        # Verifica a opção desejada e chama a respetiva função
+        if (opcao_inicial_desejada == opcoes[0]):
+            cadastrarProduto()
+        elif (opcao_inicial_desejada == opcoes[1]):
+            consultarProduto()
+        elif (opcao_inicial_desejada == opcoes[2]):
+            removerProduto()
+        elif (opcao_inicial_desejada == opcoes[3]):
+            sair()
+        else:
+            opcaoInvalida()
+    except Exception as e:
+        print('Erro. Apenas número é permitido.')
+        sair()
+
+iniciaControlEstoque()
