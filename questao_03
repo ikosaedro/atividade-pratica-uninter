@@ -1,0 +1,145 @@
+
+
+# Definição das váriaveis usadas nos cálculos
+opcao_feijoada_escolhida = 0
+valor_total_acompanhamento = 0
+volume_fejoada_escolhido = 0
+valor_opcao_feijoada_escolhida = 0
+
+# Exibe mensagem de boas vindas
+print('Seja bem vindo(a) ao Programa de Feijoada do Maurício Pereira')
+
+# Função para o calcúlo do volume da feijoada
+def volumeFeijoada():
+
+    # Referenciando as váriaves para uso como globais
+    global volume_fejoada_escolhido
+    global opcao_acompanhamento
+    global valor_acompanhamento
+
+    # Loop para obter o volume da feijoda.
+    while (True):
+        print('Menu Volume Feijoada')
+        # Tratamento de erro para caso de não ser digitado número
+        try:
+            # Obtém o volume desejado de feijoada
+            volume_fejoada_escolhido = int(input('Entre com a quantidade que deseja (ml): '))
+            # Verifica se o volume está dentro do permitido.Se Permitido, chama a função opçãoFejoada e para o loop.
+            # Se não, reporta a mensagem de não aceite do volume informado e o loop acontece.
+            if (volume_fejoada_escolhido >= 300 and volume_fejoada_escolhido <= 5000):
+                opcaoFeijoada()
+                break
+            else:
+                print('Não aceitamos porções menores que 300ml ou maiores que 5l. Tente novamente!')
+                continue
+        except:
+            # Exibe mensagem e repete o loop de solicitação de volume da feijoada
+            print('Não numérico! Tente novamente.')
+            continue
+
+def opcaoFeijoada():
+
+    # Referenciando as váriaves para uso como globais
+    global opcao_feijoada_escolhida
+    global valor_opcao_feijoada_escolhida
+
+    while(True):
+
+        # Mensagens de Menu da feijoada
+        print('Menu Opção Feijoada')
+        print('Entre com a opção de Feijoada: ')
+
+        print('b - Básica (Feijão + paiol + costelinha) ')
+        print('p - Premium (Feijão + paiol + costelinha + partes de porco)')
+        print('s - Suprema (Feijão + paiol + costelinha + partes do porco + charque + calabresa + bacon)')
+
+        # Atribuição da opção de feijoada
+        opcao_feijoada_escolhida = input('>>')
+
+        # Vefifica a opção escolhida
+        if (opcao_feijoada_escolhida == 'b'):
+            # Atribui o valor da opção escolhida
+            valor_opcao_feijoada_escolhida = 1
+            # Chama a função acompanhamento
+            acompanhamento()
+            # Para o loop
+            break
+        elif (opcao_feijoada_escolhida == 'p'):
+            # Atribui o valor da opção escolhida
+            valor_opcao_feijoada_escolhida = 1.25
+            # Chama a função acompanhamento
+            acompanhamento()
+            # Para o loop
+            break
+        elif (opcao_feijoada_escolhida == 's'):
+            # Atribui o valor da opção escolhida
+            valor_opcao_feijoada_escolhida = 1.50
+            # Chama a função acompanhamento
+            acompanhamento()
+            # Para o loop
+            break
+        else:
+            # Não seja obdecida nenhuma condição acima, mostra que a entrada foi ínválida.
+            print('Opção inválida. Tente novamente')
+            # Continua o loop
+            continue
+
+def acompanhamento():
+
+    # Referenciando a váriavel para uso como global
+    global valor_total_acompanhamento
+
+    while(True):
+
+        # Exibi mensagens sobre o acompanhamento
+
+        print('Deseja mais algum acompanhamento?')
+        print('0- Não desejo mais acompanhamentos (encerrar pedido)')
+        print('1- 200g de arroz')
+        print('2- 150g de farofa especial')
+        print('3- 100g de couve cozida')
+        print('4- 1 laranja descascada')
+
+        # Solicita a entrada para a opção do acompanhamento
+        opcao_acompanhamento = input('>>')
+        # Verifica se não deseja acompanhamento.
+        if (opcao_acompanhamento == '0'):
+            # Não desejando acompanhamento. Realizao os cálculos abaixo
+
+            # Cálculo do volume
+            volume = 0.08 * volume_fejoada_escolhido
+
+            # Calculo do total a pagar
+            valor_pagar = volume * valor_opcao_feijoada_escolhida + valor_total_acompanhamento
+            # Exibe para o usuário o seu total a pagar bem como se deu o cálculo para chegar ao valor.
+            print('Valor a ser pago é (R$): {:.2f} (volume = {:.2f} * opcao = {:.2f} + acompanhamento = {:.2f})'.format(valor_pagar,
+                                                                                             volume,
+                                                                                             valor_opcao_feijoada_escolhida,
+                                                                                             valor_total_acompanhamento))
+            # Para o loop
+            break
+        elif (opcao_acompanhamento == '1'):
+            # Acrescenta o valor do novo acompanhamento ao valor total de todos os acompanhamentos até então escolhidos.
+            valor_total_acompanhamento += 5
+            # Cotinua o loop
+            continue
+        elif (opcao_acompanhamento == '2'):
+            # Acrescenta o valor do novo acompanhamento ao valor total de todos os acompanhamentos até então escolhidos.
+            valor_total_acompanhamento += 6
+            continue
+        elif (opcao_acompanhamento == '3'):
+            # Acrescenta o valor do novo acompanhamento ao valor total de todos os acompanhamentos até então escolhidos.
+            valor_total_acompanhamento += 7
+            # Cotinua o loop
+            continue
+        elif (opcao_acompanhamento == '4'):
+            # Acrescenta o valor do novo acompanhamento ao valor total de todos os acompanhamentos até então escolhidos.
+            valor_total_acompanhamento += 3
+            # Cotinua o loop
+            continue
+        else:
+            # Cotinua o loop
+            continue
+
+
+volumeFeijoada()
